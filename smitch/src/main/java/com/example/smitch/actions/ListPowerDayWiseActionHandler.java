@@ -12,7 +12,7 @@ public class ListPowerDayWiseActionHandler extends ActionHandler<Map> {
 
     @Override
     public Action handlingFor() {
-        return Action.POWER_LIST;
+        return Action.POWER_DAY_LIST;
     }
 
     @Override
