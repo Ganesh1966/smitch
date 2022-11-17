@@ -27,6 +27,6 @@ public Map executeAction(Map operateOn) {
         String userName = String.valueOf(credentials.get("username"));
         jwtService.deregisterLogin(userName);
 
-        return Map.of("logout", "");
+        return Map.of("logout", "logout successfully");
         }
         }
