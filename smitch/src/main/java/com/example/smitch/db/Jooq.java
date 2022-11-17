@@ -5,6 +5,7 @@ import com.example.demo.db.jooqs.tables.AuthorizationToken;
 import com.example.demo.db.jooqs.tables.records.AuthorizationTokenRecord;
 import com.example.demo.db.jooqs.tables.records.PowerRecord;
 import com.example.demo.db.jooqs.tables.records.UserRecord;
+import com.example.smitch.exceptions.DataValidationException;
 import com.example.smitch.models.AuthentificationToken;
 import com.example.smitch.models.Power;
 import com.example.smitch.models.PowerListView;
@@ -24,6 +25,7 @@ import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.zip.DataFormatException;
 
 @Component
 public class Jooq implements PersistanceStore{
@@ -108,6 +110,30 @@ public class Jooq implements PersistanceStore{
         liveContext().deleteFrom(Tables.AUTHORIZATION_TOKEN)
                 .where(Tables.AUTHORIZATION_TOKEN.JWT_TOKEN.eq(jwtToken))
                 .execute();
+    }
+
+    @Override
+    public void validateUser(User user) {
+        boolean mail= liveContext().fetchExists(
+                liveContext().selectFrom(Tables.USER).where(Tables.USER.MAILID.eq(user.getEmailId())));
+
+        boolean userName= liveContext().fetchExists(
+                liveContext().selectFrom(Tables.USER).where(Tables.USER.NAME.eq(user.getUserName())));
+
+        boolean phoneNumber= liveContext().fetchExists(
+                liveContext().selectFrom(Tables.USER).where(Tables.USER.PHONENUMBER.eq(user.getMobileNumber())));
+
+        if(mail){
+            throw new DataValidationException("Mail id is already present");
+        }
+        if(userName){
+            throw new DataValidationException(" user name is already present");
+        }
+        if(phoneNumber){
+            throw new DataValidationException("phone number is already present");
+        }
+
+
     }
 
     @Override

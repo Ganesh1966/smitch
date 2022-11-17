@@ -29,4 +29,6 @@ public interface PersistanceStore {
     List<PowerListView> fetchAllPowerDay(Power power);
 
     void deleteAuthorizationToken(String jwtToken);
+
+    void validateUser(User user);
 }
