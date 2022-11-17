@@ -7,15 +7,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
-import org.springframework.boot.web.reactive.error.DefaultErrorAttributes;
-import org.springframework.boot.web.reactive.error.ErrorAttributes;
+import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
+import org.springframework.boot.web.servlet.error.ErrorAttributes;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.time.OffsetDateTime;
+import java.util.*;
+import java.util.logging.Logger;
 
 import java.time.OffsetDateTime;
 import java.util.HashMap;
@@ -82,10 +87,11 @@ class WorkflowController {
 @Component
 class CustomErrorAttributes extends DefaultErrorAttributes implements ErrorAttributes {
 
+	@Override
 	public Map<String, Object> getErrorAttributes(
 			WebRequest webRequest, ErrorAttributeOptions options) {
 		Map<String, Object> errorAttributes =
-				new HashMap<>();
+				super.getErrorAttributes(webRequest, options);
 		errorAttributes.put("success", false);
 		errorAttributes.remove("status");
 		return errorAttributes;
