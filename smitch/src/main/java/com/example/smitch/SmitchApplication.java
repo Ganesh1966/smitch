@@ -46,7 +46,7 @@ class WorkflowController {
 	private Logger logger = Logger.getLogger("LANDING CONTROLLER");
 
 	@CrossOrigin
-	@PostMapping("/AcmeFresh")
+	@PostMapping("/smitch")
 	public ResponseEntity workflow(@RequestBody Map<String, Object> workflowBody) {
 		String actionId = Optional.ofNullable((String) workflowBody.get("id")).orElse("UNKNOWN");
 		Map operateOn = Optional.ofNullable((Map) workflowBody.get("operateOn")).orElse(Map.of());

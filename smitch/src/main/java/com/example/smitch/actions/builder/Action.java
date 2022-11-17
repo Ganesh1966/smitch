@@ -5,5 +5,6 @@ public enum Action {
     LOGIN,
     LOGOUT,
     ADD_POWER,
-    POWER_LIST
+    POWER_LIST,
+    POWER_DAY_LIST
 }
