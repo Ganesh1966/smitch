@@ -73,6 +73,7 @@ public class Jooq implements PersistanceStore{
         userRecord.setMailid(user.getEmailId());
         userRecord.setTimestamp(OffsetDateTime.now());
         userRecord.setPassword(String.format("p:%s", generateHashedPassword(user.getPassword())));
+        userRecord.setPhonenumber(user.getMobileNumber());
         userRecord.store();
 
         return "user record stored successfully";
