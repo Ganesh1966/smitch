@@ -21,7 +21,12 @@ public class UserRegistrationActionHandler extends ActionHandler<String> {
         if(operateOn.isEmpty())
             throw new DataValidationException("User cannot be empty");
 
+
+
         User user=mapper.convertValue(operateOn.get("user"),User.class);
+
+        persistanceStore.validateUser(user);
+
 
         return persistanceStore.adduser(user);
 
