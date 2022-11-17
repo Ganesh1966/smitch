@@ -1,6 +1,10 @@
 # smitch
 use this url in post : http://localhost:8080/smitch
 
+use postgres db
+
+.env files in resource for accessing database
+
 use id for different action in Action ENUM
 
 format
